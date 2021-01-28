@@ -24,6 +24,12 @@ player_image.set_colorkey(BLACK)
 laser_image = pygame.image.load('laser.png').convert()
 enemy_image = pygame.image.load('Virus.png').convert()
 enemy_image.set_colorkey(WHITE)
+enemy2_image = pygame.image.load('virus2.jpg').convert()
+enemy2_image.set_colorkey(WHITE)
+enemy3_image = pygame.image.load('virus3 (2).png').convert()
+enemy3_image.set_colorkey(WHITE)
+enemy4_image = pygame.image.load('virus4.png').convert()
+enemy4_image.set_colorkey(WHITE)
 
 background_position = [0, 0]
 
@@ -77,18 +83,38 @@ laser_y = 10
 laser_velocity = 0
 fire = False
 
+#Make the enemies move the same way
 def reset_speed(speed):
     if speed < 0:
         return speed * -1
     else:
         return speed
 
+#If one of the ships corners hits an enemy player dies
 def player_hit(enemy_x, enemy_y, player_x, player_y):
     if player_x < enemy_x + 80 and player_x > enemy_x and player_y < enemy_y + 61 and player_y > enemy_y or player_x + 99 < enemy_x + 80 and player_x + 99 > enemy_x and player_y < enemy_y + 61 and player_y > enemy_y or player_x < enemy_x + 80 and player_x > enemy_x and player_y + 75 < enemy_y + 61 and player_y + 75 > enemy_y or player_x + 99 < enemy_x + 80 and player_x + 99 > enemy_x and player_y + 75 < enemy_y + 61 and player_y + 75 > enemy_y:
         return False
     return True
 
+#Set count for enemies defeated
 count = 0
+
+#Blit level 1 and info of 1st virus
+screen.blit(background_image, (0, 0))
+font = pygame.font.SysFont('Calibri', 50, True, False)
+text = font.render("Level 1", True, GREEN)
+screen.blit(text, [325, 275])
+pygame.display.update()
+time.sleep(2)
+screen.blit(background_image, (0, 0))
+font = pygame.font.SysFont('Calibri', 25, True, False)
+text = font.render("Adware is the least dangerous.", True, GREEN)
+screen.blit(text, [235, 255])
+font = pygame.font.SysFont('Calibri', 25, True, False)
+text = font.render("It collects information from your browsing and sells it to ads.", True, GREEN)
+screen.blit(text, [100, 275])
+pygame.display.update()
+time.sleep(4)
 
 # -------- Main Program Loop -----------
 while not done:   
@@ -100,6 +126,7 @@ while not done:
     screen.blit(background_image, (0, 0))
     
     # --- Game logic should go here
+    #Make key inputs to move
     if event.type == pygame.KEYDOWN and player_alive:
         if event.key == pygame.K_LEFT:
             player_x_move = -5
@@ -120,6 +147,7 @@ while not done:
             player_x_move = 0
             player_y_move = 0
 
+    #Set player boundaries
     player_x += player_x_move
     if player_x <= 0:
         player_x = 0
@@ -131,7 +159,8 @@ while not done:
         player_y = 0
     elif player_y >= 525:
         player_y = 525
-        
+
+    #Make bullet move     
     if fire:
         screen.blit(laser_image, (laser_x, laser_y))
         laser_velocity = -10
@@ -140,10 +169,20 @@ while not done:
             laser_velocity = 0
             fire = False
     
+    #Blit level 2 + info and spawn enemies with increased speed
     if count == 6 and player_alive and level == 1:
         font = pygame.font.SysFont('Calibri', 50, True, False)
         text = font.render("Level 2", True, GREEN)
         screen.blit(text, [325, 275])
+        pygame.display.update()
+        time.sleep(2)
+        screen.blit(background_image, (0, 0))
+        font = pygame.font.SysFont('Calibri', 25, True, False)
+        text = font.render("Spyware is a type of malware installed without knowledge.", True, GREEN)
+        screen.blit(text, [95, 255])
+        font = pygame.font.SysFont('Calibri', 25, True, False)
+        text = font.render("It invades the device, steals sensitive information and internet usage data.", True, GREEN)
+        screen.blit(text, [20, 275])
         player_x = 348
         player_y = 400
         enemy1_x = random.randint(10, 700)
@@ -179,12 +218,22 @@ while not done:
         alive6 = True
         level = 2
         pygame.display.update()
-        time.sleep(2)
+        time.sleep(5)
 
+    #Blit level 3 + info and spawn enemies with increased speed
     if count == 12 and player_alive and level == 2:
         font = pygame.font.SysFont('Calibri', 50, True, False)
         text = font.render("Level 3", True, GREEN)
         screen.blit(text, [325, 275])
+        pygame.display.update()
+        time.sleep(2)
+        screen.blit(background_image, (0, 0))
+        font = pygame.font.SysFont('Calibri', 25, True, False)
+        text = font.render("Rootkit is designed to be hard to detect and remove.", True, GREEN)
+        screen.blit(text, [120, 255])
+        font = pygame.font.SysFont('Calibri', 25, True, False)
+        text = font.render("It accesses the owner’s information without the owner knowing.", True, GREEN)
+        screen.blit(text, [65, 275])
         player_x = 348
         player_y = 400
         enemy1_x = random.randint(10, 700)
@@ -220,12 +269,25 @@ while not done:
         alive6 = True
         level = 3
         pygame.display.update()
-        time.sleep(2)
+        time.sleep(5)
 
+    #Blit level 4 + info and spawn enemies with increased speed and moving up
     if count == 18 and player_alive and level == 3:
         font = pygame.font.SysFont('Calibri', 50, True, False)
         text = font.render("Level 4", True, GREEN)
         screen.blit(text, [325, 275])
+        pygame.display.update()
+        time.sleep(2)
+        screen.blit(background_image, (0, 0))
+        font = pygame.font.SysFont('Calibri', 30, True, False)
+        text = font.render("Trojan is the most dangerous Malware.", True, GREEN)
+        screen.blit(text, [175, 250])
+        font = pygame.font.SysFont('Calibri', 30, True, False)
+        text = font.render("It discovers your financial information,", True, GREEN)
+        screen.blit(text, [175, 275])
+        font = pygame.font.SysFont('Calibri', 30, True, False)
+        text = font.render("and takes over your computer’s system.", True, GREEN)
+        screen.blit(text, [175, 300])
         player_x = 348
         player_y = 400
         enemy1_x = random.randint(10, 700)
@@ -261,13 +323,15 @@ while not done:
         alive6 = True
         level = 4
         pygame.display.update()
-        time.sleep(2)
+        time.sleep(6)
     
+    #Blit victory screen
     if count == 24 and player_alive and level == 4:
         font = pygame.font.SysFont('Calibri', 50, True, False)
-        text = font.render("You Won :)", True, GREEN)
-        screen.blit(text, [295, 275])
+        text = font.render("You killed the virus", True, GREEN)
+        screen.blit(text, [205, 275])
     
+    #Once player dies enemies die and defeat screen
     if not player_alive:
         alive1 = False
         alive2 = False
@@ -276,9 +340,10 @@ while not done:
         alive5 = False
         alive6 = False
         font = pygame.font.SysFont('Calibri', 50, True, False)
-        text = font.render("You Failed :(", True, RED)
-        screen.blit(text, [275, 275])
+        text = font.render("You couldn't kill the virus", True, RED)
+        screen.blit(text, [150, 275])
 
+    #Call to def player_hit while player alive
     if player_alive and alive1:
         player_alive = player_hit(enemy1_x, enemy1_y, player_x, player_y)
         
@@ -297,6 +362,7 @@ while not done:
     if player_alive and alive6:
         player_alive = player_hit(enemy6_x, enemy6_y, player_x, player_y)
 
+    #Make laser collision with enemies
     if laser_x < enemy1_x + 80 and laser_x > enemy1_x and laser_y < enemy1_y + 61 and laser_y > enemy1_y and alive1 and fire:
         alive1 = False
         fire = False
@@ -327,6 +393,7 @@ while not done:
         fire = False
         count += 1
 
+    #Enemy movement + different enemies
     if alive1:
         if enemy1_x + 80 >= 800 or enemy1_x <= 0:
             enemy1_x_move *= -1
@@ -338,7 +405,14 @@ while not done:
         if enemy1_y < 0:
             enemy1_y = 599
         
-        screen.blit(enemy_image, (enemy1_x, enemy1_y))
+        if count < 6:
+            screen.blit(enemy_image, (enemy1_x, enemy1_y))
+        if count >= 6 and count < 12:
+            screen.blit(enemy2_image, (enemy1_x, enemy1_y))
+        if count >= 12 and count < 18:
+            screen.blit(enemy3_image, (enemy1_x, enemy1_y))
+        if count >= 18 and count < 24:
+            screen.blit(enemy4_image, (enemy1_x, enemy1_y))
 
     if alive2:
         if enemy2_x + 80 >= 800 or enemy2_x <= 0:
@@ -351,8 +425,15 @@ while not done:
         if enemy2_y < 0:
             enemy2_y = 599
         
-        screen.blit(enemy_image, (enemy2_x, enemy2_y))
-    
+        if count < 6:
+            screen.blit(enemy_image, (enemy2_x, enemy2_y))
+        if count >= 6 and count < 12:
+            screen.blit(enemy2_image, (enemy2_x, enemy2_y))
+        if count >= 12 and count < 18:
+            screen.blit(enemy3_image, (enemy2_x, enemy2_y))
+        if count >= 18 and count < 24:
+            screen.blit(enemy4_image, (enemy2_x, enemy2_y))
+
     if alive3:
         if enemy3_x + 80 >= 800 or enemy3_x <= 0:
             enemy3_x_move *= -1
@@ -364,8 +445,15 @@ while not done:
         if enemy3_y < 0:
             enemy3_y = 599
         
-        screen.blit(enemy_image, (enemy3_x, enemy3_y))
-    
+        if count < 6:
+            screen.blit(enemy_image, (enemy3_x, enemy3_y))
+        if count >= 6 and count < 12:
+            screen.blit(enemy2_image, (enemy3_x, enemy3_y))
+        if count >= 12 and count < 18:
+            screen.blit(enemy3_image, (enemy3_x, enemy3_y))
+        if count >= 18 and count < 24:
+            screen.blit(enemy4_image, (enemy3_x, enemy3_y))   
+
     if alive4:
         if enemy4_x + 80 >= 800 or enemy4_x <= 0:
             enemy4_x_move *= -1
@@ -377,8 +465,15 @@ while not done:
         if enemy4_y < 0:
             enemy4_y = 599
         
-        screen.blit(enemy_image, (enemy4_x, enemy4_y))
-    
+        if count < 6:
+            screen.blit(enemy_image, (enemy4_x, enemy4_y))
+        if count >= 6 and count < 12:
+            screen.blit(enemy2_image, (enemy4_x, enemy4_y))
+        if count >= 12 and count < 18:
+            screen.blit(enemy3_image, (enemy4_x, enemy4_y))
+        if count >= 18 and count < 24:
+            screen.blit(enemy4_image, (enemy4_x, enemy4_y))
+
     if alive5:
         if enemy5_x + 80 >= 800 or enemy5_x <= 0:
             enemy5_x_move *= -1
@@ -390,7 +485,14 @@ while not done:
         if enemy5_y < 0:
             enemy5_y = 599
         
-        screen.blit(enemy_image, (enemy5_x, enemy5_y))
+        if count < 6:
+            screen.blit(enemy_image, (enemy5_x, enemy5_y))
+        if count >= 6 and count < 12:
+            screen.blit(enemy2_image, (enemy5_x, enemy5_y))
+        if count >= 12 and count < 18:
+            screen.blit(enemy3_image, (enemy5_x, enemy5_y))
+        if count >= 18 and count < 24:
+            screen.blit(enemy4_image, (enemy5_x, enemy5_y))
     
     if alive6:
         if enemy6_x + 80 >= 800 or enemy6_x <= 0:
@@ -403,12 +505,16 @@ while not done:
         if enemy6_y < 0:
             enemy6_y = 599
         
-        screen.blit(enemy_image, (enemy6_x, enemy6_y))
-    
-    # --- Drawing code should go here
-    
-    # First, clear the screen to white or whatever background colour. 
-    # Don't put other drawing commands above this, or they will be erased with this command.
+        if count < 6:
+            screen.blit(enemy_image, (enemy6_x, enemy6_y))
+        if count >= 6 and count < 12:
+            screen.blit(enemy2_image, (enemy6_x, enemy6_y))
+        if count >= 12 and count < 18:
+            screen.blit(enemy3_image, (enemy6_x, enemy6_y))
+        if count >= 18 and count < 24:
+            screen.blit(enemy4_image, (enemy6_x, enemy6_y))
+
+    #Show player while alive
     if player_alive:
         screen.blit(player_image, (player_x, player_y))
     # --- Go ahead and update the screen with what we've drawn.
